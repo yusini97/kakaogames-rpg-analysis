@@ -4,4 +4,3 @@
 
 - 페이지: https://yusini97.github.io/kakaogames-rpg-analysis/
 - 수치는 2026-11-02 기준 공개 자료이며, 출처는 페이지 하단에 있습니다.
-- 개인 분석이며 카카오게임즈 공식 자료가 아닙니다.
