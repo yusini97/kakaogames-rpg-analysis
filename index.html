@@ -141,11 +141,11 @@
   .case .co{font-size:13px;color:var(--sub)}
   .case p{font-size:14px;margin-top:14px}
   .case .learn{margin-top:16px;padding-top:16px;font-size:14px;font-weight:700;border-top:1px solid var(--line)}
-  .flows{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
-  .flow{background:var(--card);border-radius:20px;padding:24px;border:1px solid var(--line)}
-  .flow h4{font-size:15px;margin-bottom:14px}
-  .steps{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-  .steps span{background:var(--soft);padding:6px 12px;border-radius:999px;font-size:13px;font-weight:700}
+  .flows{display:grid;grid-template-columns:1fr;gap:12px;margin-top:20px}
+  .flow{background:var(--card);border-radius:20px;padding:20px 24px;border:1px solid var(--line);display:grid;grid-template-columns:120px 1fr;align-items:center;gap:16px}
+  .flow h4{font-size:15px}
+  .steps{display:flex;flex-wrap:nowrap;gap:8px;align-items:center}
+  .steps span{background:var(--soft);padding:7px 14px;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap}
   .steps .arr{background:none;padding:0;color:#aaa}
 
   /* titles */
@@ -225,7 +225,9 @@
     nav ul{display:none}
     .stats,.cases{grid-template-columns:1fr 1fr}
     .titles{grid-template-columns:1fr 1fr}
-    .split,.personas,.flows,.beyond{grid-template-columns:1fr}
+    .split,.personas,.beyond{grid-template-columns:1fr}
+    .flow{grid-template-columns:1fr;gap:12px}
+    .steps{flex-wrap:wrap}
     .countries,.churn,.mini-personas{grid-template-columns:1fr}
     .m-row{grid-template-columns:1fr 1fr 1fr}
     .m-row .copy{grid-column:1/-1;margin-top:6px}
@@ -243,6 +245,8 @@
     .persona{padding:24px}
     .persona dl{grid-template-columns:1fr;gap:2px}
     .persona dd{margin-bottom:10px}
+    .steps{flex-direction:column;align-items:flex-start;gap:4px}
+    .steps .arr{transform:rotate(90deg);margin-left:14px}
     .titles{grid-template-columns:1fr}
     .by{display:block;grid-row:auto}
     .by dl{display:grid;grid-template-columns:1fr;gap:2px}
@@ -317,7 +321,7 @@
           <li>버려두어도 쌓이는 성장, 숫자가 커지는 쾌감</li>
           <li>메이플 키우기 일 매출 1위 이후 클래식 IP '키우기' 러시</li>
           <li>스톤에이지 키우기 최고 4위, 창세기전 키우기 최고 12위</li>
-          <li>장르보다 IP가 먼저 팔린다</li>
+          <li>장르보다 IP 우선</li>
         </ul>
         <svg width="220" height="220" viewBox="0 0 100 100"><path fill="#111" d="M10 90h16V60H10zm22 0h16V44H32zm22 0h16V28H54zm22 0h16V10H76z"/></svg>
       </div>
@@ -388,7 +392,7 @@
 
     <h3 class="sub-h">게임을 하지 않는 이유와 장르별 대응</h3>
     <div class="churn">
-      <div><b>44%</b><span>시간 부족</span><p>→ 방치형의 '하루 5분'·오프라인 보상 소구 근거</p></div>
+      <div><b>44%</b><span>시간 부족</span><p>→ 방치형의 '하루 5분'·오프라인 보상을 내세울 근거</p></div>
       <div><b>36%</b><span>흥미 감소</span><p>→ 수집형의 신규 캐릭터·스토리 업데이트로 재방문 유도</p></div>
       <div><b>34.9%</b><span>대체 여가 발견</span><p>→ 대체 여가 1위는 OTT·영상(86.3%). 실질적 경쟁 상대는 <em>영상 콘텐츠</em></p></div>
     </div>
@@ -402,10 +406,10 @@
     <h2>아는 얼굴을 가볍게,<br>게임 밖에서도 캐릭터를</h2>
 
     <div class="cases">
-      <div class="case"><span class="chip i">방치형</span><h3>메이플 키우기</h3><p class="co">넥슨</p><p>원작 캐릭터·맵·BGM을 그대로 쓴 향수 소구, 글로벌 동시 공략</p><p class="learn">낮은 진입 장벽 + 강한 IP = 복귀 유저 대량 유입</p></div>
-      <div class="case"><span class="chip i">방치형</span><h3>세븐나이츠 키우기</h3><p class="co">넷마블</p><p>원작 영웅을 SD로 단순화, '키우기' 네이밍으로 장르를 이름에서 전달</p><p class="learn">이름과 아이콘만으로 '가볍게 즐길 수 있다'는 약속</p></div>
-      <div class="case"><span class="chip c">수집형</span><h3>블루 아카이브</h3><p class="co">넥슨게임즈</p><p>TV 애니메이션, 팝업·콜라보 카페, 행사 참여로 게임 밖 접점 확대</p><p class="learn">운영기 IP 확장이 매출을 오래 끌고 간다</p></div>
-      <div class="case"><span class="chip c">수집형</span><h3>승리의 여신: 니케</h3><p class="co">시프트업</p><p>캐릭터 비주얼을 전면에 둔 후킹 소재, 인기 IP 콜라보</p><p class="learn">한 장의 이미지가 초기 유입을 결정</p></div>
+      <div class="case"><span class="chip i">방치형</span><h3>메이플 키우기</h3><p class="co">넥슨</p><p>원작 캐릭터·맵·BGM을 그대로 살려 추억을 자극, 글로벌 동시 공략</p><p class="learn">낮은 진입 장벽 + 강한 IP = 복귀 유저 대량 유입</p></div>
+      <div class="case"><span class="chip i">방치형</span><h3>세븐나이츠 키우기</h3><p class="co">넷마블</p><p>원작 영웅을 SD로 단순화, 타이틀의 '키우기'로 장르를 바로 전달</p><p class="learn">타이틀과 아이콘만으로 '가볍게 즐길 수 있다'는 약속</p></div>
+      <div class="case"><span class="chip c">수집형</span><h3>블루 아카이브</h3><p class="co">넥슨게임즈</p><p>TV 애니메이션, 팝업·콜라보 카페, 행사 참여로 게임 밖 접점 확대</p><p class="learn">운영 중 IP 확장이 매출의 장기 동력</p></div>
+      <div class="case"><span class="chip c">수집형</span><h3>승리의 여신: 니케</h3><p class="co">시프트업</p><p>캐릭터 비주얼을 전면에 내세워 눈길을 끄는 광고 소재, 인기 IP 콜라보</p><p class="learn">한 장의 이미지가 초기 유입을 결정</p></div>
     </div>
 
     <div class="flows">
@@ -454,7 +458,7 @@
         <div class="by-head"><span class="by-tag">MMORPG · 2027.1 출시 예정</span><h3>오딘Q</h3></div>
         <dl>
           <dt>선정 배경</dt><dd>실시간 3D 전투에 카드 전술을 결합한 하이브리드 전투를 내세우며, 수집 요소가 MMORPG로 확장되는 흐름.</dd>
-          <dt>시사점</dt><dd>장르 간 경계가 흐려지면서, 수집형의 '캐릭터·카드' 소구와 MMORPG의 '성장·경쟁' 소구를 결합한 메시지 설계 여지 확대.</dd>
+          <dt>시사점</dt><dd>장르 간 경계가 흐려지면서, 수집형의 '캐릭터·카드' 매력과 MMORPG의 '성장·경쟁' 재미를 함께 내세우는 메시지 설계 여지 확대.</dd>
         </dl>
       </div>
     </div>
@@ -464,7 +468,7 @@
       <div class="country"><span class="flag">KOREA</span><p class="rel">우마무스메 · 그랑사가 키우기</p><p>두 타이틀의 주 서비스 시장. 우마무스메는 일본 원작의 업데이트가 앞서 진행되어, 국내 유저가 다음 콘텐츠를 미리 알고 기다리는 구조.</p><p class="imp">→ 선행 정보를 전제로 한 업데이트 소통, 커뮤니티 여론 관리</p></div>
       <div class="country"><span class="flag">JAPAN</span><p class="rel">그랑사가 키우기 · 가디언 메이든</p><p>그랑사가 키우기는 출시 초기 한국·일본 인기 순위 1위 기록. 서브컬처의 중심 시장으로 성우·캐릭터 중심 소통이 기본 문법.</p><p class="imp">→ 수집형 신작 진출 시 성우·캐릭터 중심 소재 설계</p></div>
       <div class="country"><span class="flag">CHINA</span><p class="rel">프로젝트C · 가디언 메이든</p><p>두 타이틀 모두 중화권은 카카오게임즈 판권에서 제외되어 직접 공략 대상 외. 다만 현지 출시·평판 정보가 글로벌 커뮤니티로 빠르게 확산.</p><p class="imp">→ 직접 마케팅보다 현지 동향 모니터링</p></div>
-      <div class="country"><span class="flag">NORTH AMERICA</span><p class="rel">그랑사가 키우기 · 서구권 라인업</p><p>카카오게임즈는 서구권을 중점 공략 지역으로 삼고 방치형·수집형 등 검증된 장르 위주로 라인업을 구성 중. 메이플 키우기의 미국 iOS 주간 매출 150만 달러 초과가 방치형 수요를 방증.</p><p class="imp">→ 방치형은 퍼포먼스 광고 효율, 수집형은 Discord·Reddit 커뮤니티 운영</p></div>
+      <div class="country"><span class="flag">NORTH AMERICA</span><p class="rel">그랑사가 키우기 · 서구권 라인업</p><p>카카오게임즈는 서구권을 중점 공략 지역으로 삼고 방치형·수집형 등 검증된 장르 위주로 라인업을 구성 중. 메이플 키우기의 미국 iOS 주간 매출 150만 달러 초과가 방치형 수요를 보여 주는 사례.</p><p class="imp">→ 방치형은 퍼포먼스 광고 효율, 수집형은 Discord·Reddit 커뮤니티 운영</p></div>
       <div class="country"><span class="flag">SOUTH AMERICA</span><p class="rel">그랑사가 키우기</p><p>160여 개국 동시 출시에 포함된 권역. 안드로이드 비중이 높아 기기 사양과 용량에 민감.</p><p class="imp">→ 브라질 포르투갈어·스페인어 현지화, 현지 물가에 맞춘 가격</p></div>
       <div class="country"><span class="flag">EUROPE</span><p class="rel">가디언 메이든 · 프로젝트C</p><p>중화권을 제외한 글로벌 판권에 포함된 권역. 벨기에처럼 확률형 아이템을 규제하는 나라가 있어, 가챠가 핵심인 수집형에 직접 영향.</p><p class="imp">→ 국가별 BM 규제 확인과 다국어 현지화</p></div>
     </div>
@@ -473,7 +477,7 @@
       <h4>핵심 요약</h4>
       <ol>
         <li><span><b>수집형 · 팬덤의 깊이</b>캐릭터 PV·성우·오프라인 행사로 게임 밖 접점 확대. 우마무스메·가디언 메이든·프로젝트C에 적용.</span></li>
-        <li><span><b>방치형 · 부담 없는 플레이</b>숏폼 광고, '하루 5분'·오프라인 보상, 익숙한 IP 소구. 그랑사가 키우기에 적용.</span></li>
+        <li><span><b>방치형 · 부담 없는 플레이</b>숏폼 광고, '하루 5분'·오프라인 보상, 익숙한 IP 활용. 그랑사가 키우기에 적용.</span></li>
         <li><span><b>라이브 서비스 · 업데이트가 재도약의 계기</b>오딘 5주년 업데이트 후 매출 1위 재기록. 권역별 선행 정보·BM 규제·현지화 차이를 반영한 메시지 운영.</span></li>
       </ol>
     </div>
@@ -534,11 +538,11 @@
       rel:["jihun"]},
     jihun: {c:"#FF5A7A", k:"수집형 페르소나", t:"\"최애 수집러\" 지훈, 27", s:"퇴근 후 1~2시간, 2~3개 게임 병행",
       rows:[["핵심 동기","애착·스토리, 수집·완성, 커뮤니티"],["주요 접점","X, 커뮤니티 갤러리, 유튜브 PV, 오프라인 팝업"],["결제 계기","최애 픽업 배너, 한정 캐릭터"]],
-      point:"픽업 일정 사전 공개와 캐릭터 PV·성우 중심 소재. 운영 논란에 민감하여 공지의 투명성이 리텐션을 좌우.",
+      point:"픽업 일정 사전 공개와 캐릭터 PV·성우 중심 소재. 운영 논란에 민감하여 공지의 투명성이 유저 유지를 좌우.",
       rel:["uma","gm","pc"]},
     minsu: {c:"#FFD400", k:"방치형 페르소나", t:"\"출퇴근 성장러\" 민수, 38", s:"하루 순수 게임 시간 20~30분",
       rows:[["핵심 동기","시간 효율, 성장·파워, 향수·IP 친숙함"],["주요 접점","유튜브·인스타 숏폼 광고, 스토어 피처드"],["결제 계기","월정액·패스, 성장 정체 구간의 소액 패키지"]],
-      point:"'하루 5분'·오프라인 보상 소구와 익숙한 IP. 과금 압박이 이탈 요인이므로 월정액·패스 중심 설계.",
+      point:"'하루 5분'·오프라인 보상과 익숙한 IP를 내세운 메시지. 과금 압박이 이탈 요인이므로 월정액·패스 중심 설계.",
       rel:["gsi"]},
     seoyeon: {c:"#6B7280", k:"10대", t:"\"무료로 가볍게\" 서연, 17", s:"결제 비중 낮음, 무료 게임 중심 이용",
       rows:[["핵심 동기","무료 보상, 친구·커뮤니티"],["유의점","미성년자 결제 보호 대상, 야간 광고성 알림 지양"]],
