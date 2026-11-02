@@ -181,6 +181,36 @@
   .curious li::before{content:"0" counter(q);font-weight:900;background:var(--black);color:var(--yellow);border-radius:8px;padding:2px 8px;font-size:13px;flex:none;margin-top:2px}
   .small{font-size:13px;color:var(--sub);margin-top:14px}
 
+  .jump{position:fixed;right:20px;bottom:20px;z-index:20;display:flex;flex-direction:column;gap:8px}
+  .jump button{width:44px;height:44px;border-radius:50%;border:0;background:var(--black);color:var(--yellow);font-size:20px;font-weight:900;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18);display:grid;place-items:center;transition:transform .15s,opacity .2s}
+  .jump button:hover{transform:translateY(-2px)}
+  .jump button[hidden]{display:none}
+  @media (max-width:560px){.jump{right:12px;bottom:12px}.jump button{width:40px;height:40px;font-size:18px}}
+  [data-detail]{cursor:pointer;position:relative;transition:transform .15s,box-shadow .15s}
+  [data-detail]:hover,[data-detail]:focus-visible{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.12);outline:none}
+  [data-detail]::after{content:"자세히 +";position:absolute;right:16px;top:14px;font-size:11px;font-weight:800;color:var(--sub);background:var(--soft);padding:3px 8px;border-radius:999px}
+  .title-card[data-detail]::after{top:auto;bottom:14px;background:#2a2a2a;color:var(--yellow)}
+  .modal{margin:auto;border:0;padding:0;border-radius:24px;width:min(640px,calc(100% - 32px));max-height:calc(100vh - 48px);box-shadow:0 30px 80px rgba(0,0,0,.35);color:var(--ink);overflow:hidden}
+  .modal[open]{display:flex;flex-direction:column}
+  .modal::backdrop{background:rgba(17,17,17,.6)}
+  .m-head{padding:28px 64px 22px 28px;position:relative;flex:none}
+  .m-head small{font-size:12px;font-weight:800;opacity:.85}
+  .m-head h3{font-size:24px;font-weight:900;letter-spacing:-.03em;margin-top:6px}
+  .m-head p{margin-top:8px;font-size:14px;opacity:.9}
+  .m-close{position:absolute;right:16px;top:16px;width:36px;height:36px;border-radius:50%;border:0;background:rgba(0,0,0,.3);color:#fff;font-size:20px;cursor:pointer}
+  .m-body{padding:24px 28px 28px;overflow:auto}
+  .m-body dl{display:grid;grid-template-columns:96px 1fr;gap:10px 14px;font-size:15px}
+  .m-body dt{font-size:12px;font-weight:900;color:var(--sub);padding-top:3px}
+  .m-body h4{font-size:14px;font-weight:900;margin:22px 0 10px}
+  .m-body ul.tl{list-style:none;border-left:2px solid var(--line);padding-left:16px;display:grid;gap:8px;font-size:14px}
+  .m-body ul.tl b{display:inline-block;min-width:72px;font-weight:900}
+  .m-links{display:flex;flex-wrap:wrap;gap:8px}
+  .m-links button{border:1px solid var(--black);background:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+  .m-links button:hover{background:var(--yellow)}
+  .m-point{margin-top:22px;background:var(--black);color:#fff;border-radius:16px;padding:16px 18px;font-size:14px;font-weight:700}
+  .m-point b{color:var(--yellow);display:block;font-size:12px;margin-bottom:6px}
+  .m-src{margin-top:16px;font-size:12px;color:var(--sub);display:flex;flex-wrap:wrap;gap:4px 12px}
+  @media (max-width:560px){.m-body dl{grid-template-columns:1fr;gap:2px}.m-body dd{margin-bottom:8px}}
   footer{background:var(--black);color:#888;padding:56px 0;font-size:13px}
   footer h4{color:#fff;font-size:15px;margin-bottom:14px}
   footer ul{list-style:none;columns:3 260px;column-gap:32px}
@@ -302,7 +332,7 @@
     <p class="desc">두 장르의 핵심 타깃을 공개 데이터와 장르 관행으로 구성한 가설 페르소나.</p>
 
     <div class="personas">
-      <div class="persona c">
+      <div class="persona c" data-detail="jihun" tabindex="0" role="button">
         <div class="p-head"><div class="avatar">💗</div><div><small>수집형</small><strong>"최애 수집러" 지훈, 27</strong></div></div>
         <dl>
           <dt>상황</dt><dd>직장 2년 차, 퇴근 후 1~2시간. 애니·버튜버·팬 행사를 즐김</dd>
@@ -312,7 +342,7 @@
           <dt>이탈</dt><dd>최애 미출시, 스토리 실망, 운영 논란</dd>
         </dl>
       </div>
-      <div class="persona i">
+      <div class="persona i" data-detail="minsu" tabindex="0" role="button">
         <div class="p-head"><div class="avatar">⏱️</div><div><small>방치형</small><strong>"출퇴근 성장러" 민수, 38</strong></div></div>
         <dl>
           <dt>상황</dt><dd>맞벌이, 자녀 1명. 하루 순수 게임 시간 20~30분</dd>
@@ -325,13 +355,13 @@
     </div>
     <h3 class="sub-h">같은 시장의 다른 유저들</h3>
     <div class="mini-personas">
-      <div class="mini"><div class="m-top"><span class="m-emo">🌙</span><div><small>10대</small><strong>"무료로 가볍게" 서연, 17</strong></div></div>
+      <div class="mini" data-detail="seoyeon" tabindex="0" role="button"><div class="m-top"><span class="m-emo">🌙</span><div><small>10대</small><strong>"무료로 가볍게" 서연, 17</strong></div></div>
         <ul><li><b>결제</b>결제 비중 낮음, 무료 중심 이용</li><li><b>이용 패턴</b>무료 게임 위주의 가벼운 이용</li><li><b>유의점</b>미성년자 결제 보호 대상</li></ul>
         <p class="hint">→ 결제 유도 대상이 아닌, 무료 보상·커뮤니티로 장기 유저층 확보</p></div>
-      <div class="mini"><div class="m-top"><span class="m-emo">🎟️</span><div><small>20대</small><strong>"가성비 결제러" 도윤, 24</strong></div></div>
+      <div class="mini" data-detail="doyun" tabindex="0" role="button"><div class="m-top"><span class="m-emo">🎟️</span><div><small>20대</small><strong>"가성비 결제러" 도윤, 24</strong></div></div>
         <ul><li><b>결제</b>구매자는 많지만 금액은 작게</li><li><b>결제 시간</b>점심시간</li><li><b>반응하는 혜택</b>포인트, 멤버십, 쿠폰</li></ul>
         <p class="hint">→ 점심 한정 패키지, 쿠폰 묶음</p></div>
-      <div class="mini"><div class="m-top"><span class="m-emo">💼</span><div><small>40대</small><strong>"한 번에 크게" 정호, 44</strong></div></div>
+      <div class="mini" data-detail="jeongho" tabindex="0" role="button"><div class="m-top"><span class="m-emo">💼</span><div><small>40대</small><strong>"한 번에 크게" 정호, 44</strong></div></div>
         <ul><li><b>결제</b>1인당 결제액 1위</li><li><b>결제 시간</b>출퇴근 시간</li><li><b>반응하는 혜택</b>포인트백(적립)</li></ul>
         <p class="hint">→ 출퇴근 시간 노출, 적립형 고가 패키지</p></div>
     </div>
@@ -394,19 +424,19 @@
     <p class="desc">카카오게임즈가 서비스 중이거나 출시 예정인 타이틀에 앞의 분석을 적용. 수집형·방치형 외에도, 장르는 다르나 같은 타깃과 동기를 공유하는 타이틀도 함께 검토.</p>
 
     <div class="titles">
-      <div class="title-card">
+      <div class="title-card" data-detail="uma" tabindex="0" role="button">
         <div class="art" style="background:#FF5A7A"><svg viewBox="0 0 200 140"><circle cx="150" cy="30" r="50" fill="#FFD400" opacity=".9"/><path d="M0 140 L60 70 L110 110 L150 80 L200 120 V140Z" fill="#111" opacity=".25"/><text x="20" y="110" font-size="44" font-weight="900" fill="#fff" font-family="Pretendard,sans-serif">RUN</text></svg></div>
         <div class="body"><span class="g">수집형 육성</span><h3>우마무스메 프리티 더비</h3><span class="t">원작·애니 팬덤, 20~30대 서브컬처 이용자</span><p>2022년 출시 한 달 만에 양대 마켓 매출 1위. IP 팬덤과 커뮤니티가 초기 성과를 만든 사례</p></div>
       </div>
-      <div class="title-card">
+      <div class="title-card" data-detail="gsi" tabindex="0" role="button">
         <div class="art" style="background:#FFD400"><svg viewBox="0 0 200 140"><g fill="#111"><rect x="30" y="90" width="22" height="30" rx="4"/><rect x="62" y="70" width="22" height="50" rx="4"/><rect x="94" y="50" width="22" height="70" rx="4"/><rect x="126" y="28" width="22" height="92" rx="4"/></g><text x="152" y="34" font-size="26" font-weight="900" fill="#111" font-family="Pretendard,sans-serif">↑</text></svg></div>
         <div class="body"><span class="g">방치형 + 수집</span><h3>그랑사가 키우기</h3><span class="t">짧게 자주 접속하는 30·40대</span><p>160여 개국 동시 출시, 영웅 75종 이상. 방치형에 수집을 결합한 하이브리드</p></div>
       </div>
-      <div class="title-card">
+      <div class="title-card" data-detail="gm" tabindex="0" role="button">
         <div class="art" style="background:#3DBE8B"><span class="soon">연내 출시 예정</span><svg viewBox="0 0 200 140"><g fill="#fff"><rect x="70" y="30" width="12" height="12"/><rect x="82" y="30" width="12" height="12"/><rect x="106" y="30" width="12" height="12"/><rect x="118" y="30" width="12" height="12"/><rect x="58" y="42" width="84" height="12"/><rect x="58" y="54" width="84" height="12"/><rect x="70" y="66" width="60" height="12"/><rect x="82" y="78" width="36" height="12"/><rect x="94" y="90" width="12" height="12"/></g><rect x="0" y="118" width="200" height="22" fill="#111" opacity=".2"/></svg></div>
         <div class="body"><span class="g">수집형 액션 RPG</span><h3>가디언 메이든</h3><span class="t">도트 감성과 캐릭터를 즐기는 서브컬처 이용자</span><p>모바일·PC, 콩 스튜디오 개발. 서브컬처 행사 '일러스타 페스'에서 첫 공개, 행사에서 팬덤을 먼저 만드는 흐름</p></div>
       </div>
-      <div class="title-card">
+      <div class="title-card" data-detail="pc" tabindex="0" role="button">
         <div class="art" style="background:#2F6BFF"><span class="soon">출시 일정 미정</span><svg viewBox="0 0 200 140"><g fill="#fff"><circle cx="40" cy="50" r="10"/><circle cx="90" cy="35" r="10"/><circle cx="150" cy="45" r="10"/><circle cx="65" cy="100" r="10"/><circle cx="135" cy="100" r="10" fill="#FFD400"/></g><path d="M40 50 L90 35 L150 45 L135 100 L65 100 Z" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/></svg></div>
         <div class="body"><span class="g">수집형 육성 시뮬레이션</span><h3>프로젝트C</h3><span class="t">세계관·캐릭터를 즐기는 서브컬처 이용자</span><p>모바일·PC, 5개 대륙 판타지. 대륙별 세계관이 국가별 소재로 쓰일 여지</p></div>
       </div>
@@ -472,6 +502,93 @@
     <p class="fine">공개 자료를 바탕으로 한 개인 분석 페이지.</p>
   </div>
 </footer>
+
+<dialog class="modal" id="detail"><div class="m-head" id="mHead"></div><div class="m-body" id="mBody"></div></dialog>
+<script>
+(function(){
+  var NAME = {uma:"우마무스메", gsi:"그랑사가 키우기", gm:"가디언 메이든", pc:"프로젝트C",
+    jihun:"지훈 (수집형)", minsu:"민수 (방치형)", seoyeon:"서연 (10대)", doyun:"도윤 (20대)", jeongho:"정호 (40대)"};
+  var D = {
+    uma: {c:"#FF5A7A", k:"수집형 육성 · 서비스 중", t:"우마무스메 프리티 더비", s:"원작·애니 팬덤, 20~30대 서브컬처 이용자",
+      rows:[["개발","Cygames (일본)"],["국내 서비스","카카오게임즈"],["플랫폼","모바일"]],
+      tl:[["2022","출시 한 달 만에 양대 마켓 매출 1위"],["2026.4","신규 육성 우마무스메·이벤트 업데이트"],["2026.10","신규 육성 시나리오 '무인도에 어서오세요' 업데이트"]],
+      point:"일본 원작의 업데이트가 앞서 진행되는 구조. 국내 유저의 선행 정보를 전제로 한 업데이트 소통과 커뮤니티 여론 관리가 핵심.",
+      rel:["jihun","doyun"], src:[["뉴스토마토","https://newstomato.com/ReadNews.aspx?no=1157262"],["네이트 뉴스","https://news.nate.com/view/20261017n06489"]]},
+    gsi: {c:"#FFD400", k:"방치형 + 수집 · 서비스 중", t:"그랑사가 키우기", s:"짧게 자주 접속하는 30·40대",
+      rows:[["개발","파이드픽셀즈 (엔픽셀 자회사)"],["퍼블리싱","카카오게임즈"],["서비스 지역","글로벌 160여 개국"]],
+      tl:[["2024.5","글로벌 160여 개국 동시 출시, 영웅 75종 이상"],["출시 초기","한국·일본 인기 순위 1위"],["2025.8","원작 '그랑사가' 서비스 종료, IP는 키우기로 계승"],["2026.10","구글 플레이 최신 업데이트"]],
+      point:"원작 종료 이후 IP를 잇는 타이틀. 원작 유저의 복귀 수요와 짧은 접속 패턴을 함께 겨냥하는 소재 설계.",
+      rel:["minsu","jeongho","seoyeon"], src:[["게임잡","https://www.gamejob.co.kr/community/news/detail?mode=V&idx=104125"],["게임메카","https://www.gamemeca.com/view.php?gid=1761613"]]},
+    gm: {c:"#3DBE8B", k:"수집형 액션 RPG · 연내 출시 예정", t:"가디언 메이든", s:"도트 감성과 캐릭터를 즐기는 서브컬처 이용자",
+      rows:[["개발","콩 스튜디오"],["퍼블리싱","카카오게임즈 (중화권 제외 국내·글로벌)"],["플랫폼","모바일 · PC"]],
+      tl:[["2026.5","서브컬처 행사 '일러스타 페스'에서 첫 공개"],["2026.7","카카오게임즈 글로벌 퍼블리싱 계약"],["2026 내","정식 출시 예정"]],
+      point:"출시 전 서브컬처 행사에서 팬덤을 먼저 형성하는 흐름. 사전예약 → 캐릭터 PV → 인플루언서로 이어지는 수집형 공식의 적용 대상.",
+      rel:["jihun","doyun"], src:[["뉴스핌","https://www.newspim.com/news/view/20260728000863"]]},
+    pc: {c:"#2F6BFF", k:"수집형 육성 시뮬레이션 · 출시 일정 미정", t:"프로젝트C", s:"세계관·캐릭터를 즐기는 서브컬처 이용자",
+      rows:[["개발","라이온하트 스튜디오"],["퍼블리싱","카카오게임즈 (중국 제외 국내·글로벌)"],["플랫폼","모바일 · PC"]],
+      tl:[["2025.6","글로벌 퍼블리싱 계약"],["당초 목표","2025년 4분기 → 2026년 4분기"],["2026.8","출시 시기 미정으로 조정"]],
+      point:"5개 대륙 판타지 세계관. 대륙별 설정을 국가·권역별 소재로 활용할 여지.",
+      rel:["jihun"], src:[["디지털데일리","https://www.ddaily.co.kr/page/view/2025062518304541397"],["게임메카","https://www.gamemeca.com/en/view.php?gid=1778726"]]},
+    jihun: {c:"#FF5A7A", k:"수집형 페르소나", t:"\"최애 수집러\" 지훈, 27", s:"퇴근 후 1~2시간, 2~3개 게임 병행",
+      rows:[["핵심 동기","애착·스토리, 수집·완성, 커뮤니티"],["주요 접점","X, 커뮤니티 갤러리, 유튜브 PV, 오프라인 팝업"],["결제 계기","최애 픽업 배너, 한정 캐릭터"]],
+      point:"픽업 일정 사전 공개와 캐릭터 PV·성우 중심 소재. 운영 논란에 민감하여 공지의 투명성이 리텐션을 좌우.",
+      rel:["uma","gm","pc"]},
+    minsu: {c:"#FFD400", k:"방치형 페르소나", t:"\"출퇴근 성장러\" 민수, 38", s:"하루 순수 게임 시간 20~30분",
+      rows:[["핵심 동기","시간 효율, 성장·파워, 향수·IP 친숙함"],["주요 접점","유튜브·인스타 숏폼 광고, 스토어 피처드"],["결제 계기","월정액·패스, 성장 정체 구간의 소액 패키지"]],
+      point:"'하루 5분'·오프라인 보상 소구와 익숙한 IP. 과금 압박이 이탈 요인이므로 월정액·패스 중심 설계.",
+      rel:["gsi"]},
+    seoyeon: {c:"#6B7280", k:"10대", t:"\"무료로 가볍게\" 서연, 17", s:"결제 비중 낮음, 무료 게임 중심 이용",
+      rows:[["핵심 동기","무료 보상, 친구·커뮤니티"],["유의점","미성년자 결제 보호 대상, 야간 광고성 알림 지양"]],
+      point:"결제 유도 대상이 아닌, 무료 보상·커뮤니티 참여로 장기 유저층 확보.",
+      rel:["gsi"]},
+    doyun: {c:"#8E7CFF", k:"20대", t:"\"가성비 결제러\" 도윤, 24", s:"구매자는 많지만 결제 금액은 작음",
+      rows:[["결제 시간","점심시간"],["반응하는 혜택","포인트, 멤버십, 쿠폰"]],
+      point:"점심 한정 패키지와 쿠폰 묶음. 저가 상품의 체감 가치를 높이는 구성.",
+      rel:["uma","gm"]},
+    jeongho: {c:"#111111", k:"40대", t:"\"한 번에 크게\" 정호, 44", s:"1인당 결제액 1위",
+      rows:[["결제 시간","출퇴근 시간"],["반응하는 혜택","포인트백(적립)"]],
+      point:"출퇴근 시간 노출과 적립형 고가 패키지. 가격 대비 가치를 분명히 설명하는 상품 소통.",
+      rel:["gsi"]}
+  };
+  var TITLES = ["uma","gsi","gm","pc"];
+  var dlg = document.getElementById("detail"), H = document.getElementById("mHead"), B = document.getElementById("mBody");
+  function esc(x){ return String(x).replace(/[&<>"]/g, function(ch){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[ch]; }); }
+  function show(id){
+    var d = D[id]; if (!d) return;
+    H.style.background = d.c;
+    H.style.color = d.c === "#FFD400" ? "#111" : "#fff";
+    H.innerHTML = "<small>" + esc(d.k) + "</small><h3>" + esc(d.t) + "</h3><p>" + esc(d.s) + "</p><button class=\"m-close\" aria-label=\"닫기\">×</button>";
+    var h = "<dl>" + d.rows.map(function(r){ return "<dt>" + esc(r[0]) + "</dt><dd>" + esc(r[1]) + "</dd>"; }).join("") + "</dl>";
+    if (d.tl) h += "<h4>주요 이력</h4><ul class=\"tl\">" + d.tl.map(function(r){ return "<li><b>" + esc(r[0]) + "</b>" + esc(r[1]) + "</li>"; }).join("") + "</ul>";
+    h += "<div class=\"m-point\"><b>마케팅 포인트</b>" + esc(d.point) + "</div>";
+    if (d.rel) h += "<h4>" + (TITLES.indexOf(id) >= 0 ? "연관 페르소나" : "연관 타이틀") + "</h4><div class=\"m-links\">" + d.rel.map(function(r){ return "<button data-open=\"" + r + "\">" + esc(NAME[r]) + " →</button>"; }).join("") + "</div>";
+    if (d.src) h += "<div class=\"m-src\">출처 " + d.src.map(function(r){ return "<a href=\"" + r[1] + "\" target=\"_blank\" rel=\"noopener\">" + esc(r[0]) + "</a>"; }).join("") + "</div>";
+    B.innerHTML = h; B.scrollTop = 0;
+    if (!dlg.open) dlg.showModal();
+  }
+  document.querySelectorAll("[data-detail]").forEach(function(el){
+    el.addEventListener("click", function(){ show(el.dataset.detail); });
+    el.addEventListener("keydown", function(e){ if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(el.dataset.detail); } });
+  });
+  dlg.addEventListener("click", function(e){
+    if (e.target === dlg || e.target.classList.contains("m-close")) { dlg.close(); return; }
+    var o = e.target.closest("[data-open]"); if (o) show(o.dataset.open);
+  });
+})();
+</script>
+<div class="jump" aria-label="페이지 이동">
+  <button type="button" id="toTop" aria-label="맨 위로" hidden>↑</button>
+  <button type="button" id="toBottom" aria-label="맨 아래로">↓</button>
+</div>
+<script>
+  (function(){
+    var t=document.getElementById('toTop'),b=document.getElementById('toBottom');
+    t.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})};
+    b.onclick=function(){window.scrollTo({top:document.documentElement.scrollHeight,behavior:'smooth'})};
+    function u(){var y=window.scrollY,max=document.documentElement.scrollHeight-window.innerHeight;t.hidden=y<200;b.hidden=y>max-200}
+    window.addEventListener('scroll',u,{passive:true});window.addEventListener('resize',u);u();
+  })();
+</script>
 
 </body>
 </html>
