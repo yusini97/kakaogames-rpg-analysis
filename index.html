@@ -122,14 +122,12 @@
   .legend .lc::before{background:var(--collect)}
   .legend .li::before{background:var(--idle)}
   .churn{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
-  .churn div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+  .churn div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;grid-template-rows:subgrid;grid-row:span 3;row-gap:0}
   .churn b{font-size:30px;font-weight:900;display:block;letter-spacing:-.03em}
   .churn span{font-size:14px;color:var(--sub);font-weight:700}
-  .churn p{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;font-weight:800}
+  .churn p{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;font-weight:800;align-self:start}
   .churn em{font-style:normal;background:var(--yellow);padding:0 4px}
-  .churn div{display:flex;flex-direction:column}
-  .churn p{margin-top:auto}
-  .churn span{margin-bottom:14px}
+  .churn span{margin-top:4px}
   .callout{margin-top:20px;background:var(--black);color:#fff;border-radius:18px;padding:22px 26px;font-size:17px;font-weight:700}
   .callout em{font-style:normal;color:var(--yellow)}
 
@@ -162,21 +160,20 @@
   .title-card p{font-size:14px;color:#ddd}
   .soon{position:absolute;top:12px;right:12px;background:var(--yellow);color:var(--black);font-size:11px;font-weight:900;padding:3px 8px;border-radius:999px}
   .beyond{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .by{background:var(--soft);border-radius:24px;padding:28px;border-left:6px solid var(--yellow)}
+  .by{background:var(--soft);border-radius:24px;padding:28px;border-left:6px solid var(--yellow);display:grid;grid-template-columns:76px 1fr;column-gap:14px;grid-template-rows:subgrid;grid-row:span 3;row-gap:0;font-size:15px}
+  .by-head{grid-column:1/-1}
+  .by dl{display:contents}
+  .by dd + dt,.by dd + dt + dd{margin-top:14px}
   .by-head{margin-bottom:18px}
   .by-tag{font-size:12px;font-weight:800;background:var(--black);color:var(--yellow);padding:4px 10px;border-radius:999px}
   .by h3{font-size:22px;font-weight:900;letter-spacing:-.02em;margin-top:12px}
-  .by dl{display:grid;grid-template-columns:76px 1fr;gap:12px 14px;font-size:15px}
   .by dt{font-weight:900;font-size:13px;padding-top:2px}
-  .country .rel{font-size:12px;font-weight:800;color:var(--sub);margin-top:12px}
-  .country .rel + p{margin-top:8px}
-  .country .imp{font-weight:800;font-size:14px;border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
-  .country{display:flex;flex-direction:column;align-items:flex-start}
-  .country p{align-self:stretch}
   .countries{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .country{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px}
-  .country .flag{font-size:13px;font-weight:900;background:var(--black);color:var(--yellow);display:inline-block;padding:4px 10px;border-radius:6px}
-  .country p{margin-top:14px;font-size:15px}
+  .country{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px;display:grid;grid-template-rows:subgrid;grid-row:span 4;row-gap:0}
+  .country .flag{font-size:13px;font-weight:900;background:var(--black);color:var(--yellow);display:inline-block;padding:4px 10px;border-radius:6px;justify-self:start;align-self:start}
+  .country p{margin-top:8px;font-size:15px}
+  .country .rel{font-size:12px;font-weight:800;color:var(--sub);margin-top:12px}
+  .country .imp{font-weight:800;font-size:14px;border-top:1px solid var(--line);padding-top:12px;margin-top:16px;align-self:start}
   .curious{margin-top:20px;background:var(--yellow);border-radius:24px;padding:32px}
   .curious h4{font-size:18px;font-weight:900;margin-bottom:16px}
   .curious ol{list-style:none;display:grid;gap:12px;counter-reset:q}
@@ -215,7 +212,9 @@
     .persona dl{grid-template-columns:1fr;gap:2px}
     .persona dd{margin-bottom:10px}
     .titles{grid-template-columns:1fr}
-    .by dl{grid-template-columns:1fr;gap:2px}
+    .by{display:block;grid-row:auto}
+    .by dl{display:grid;grid-template-columns:1fr;gap:2px}
+    .by dd + dt,.by dd + dt + dd{margin-top:0}
     .by dd{margin-bottom:10px}
   }
 </style>
