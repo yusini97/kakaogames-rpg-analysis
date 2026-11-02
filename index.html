@@ -163,6 +163,11 @@
   .by h3{font-size:22px;font-weight:900;letter-spacing:-.02em;margin-top:12px}
   .by dl{display:grid;grid-template-columns:76px 1fr;gap:12px 14px;font-size:15px}
   .by dt{font-weight:900;font-size:13px;padding-top:2px}
+  .country .rel{font-size:12px;font-weight:800;color:var(--sub);margin-top:12px}
+  .country .rel + p{margin-top:8px}
+  .country .imp{font-weight:800;font-size:14px;border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
+  .country{display:flex;flex-direction:column;align-items:flex-start}
+  .country p{align-self:stretch}
   .countries{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   .country{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px}
   .country .flag{font-size:13px;font-weight:900;background:var(--black);color:var(--yellow);display:inline-block;padding:4px 10px;border-radius:6px}
@@ -213,7 +218,7 @@
 
 <nav>
   <div class="wrap">
-    <a class="logo" href="#top"><i></i>Kakao Games RPG Note</a>
+    <a class="logo" href="#top"><i></i>Kakao Games RPG Analysis</a>
     <ul>
       <li><a href="#market">시장</a></li>
       <li><a href="#target">타깃</a></li>
@@ -230,7 +235,7 @@
     <span class="tag">카카오게임즈 수집형 · 방치형 RPG 마케팅 분석</span>
     <h1>수집형은 <em>팬덤의 깊이</em>로,<br>방치형은 <em>시간 부담의 낮음</em>으로.</h1>
     <p class="lead">게임 시간 자체가 줄어든 시장에서 두 장르가 살아남는 방식은 다릅니다. 공개 데이터로 타깃과 이용 동기를 정리하고, 마케팅 방향으로 연결해 봤습니다.</p>
-    <p class="meta">2026.11 · yushin</p>
+    <p class="meta">2026.11 · 김유신</p>
   </div>
 </header>
 
@@ -421,14 +426,15 @@
       </div>
     </div>
 
-    <h3 class="sub-h">국가·권역별 특성</h3>
+    <h3 class="sub-h">국가·권역별로 다르게 볼 점</h3>
+    <p class="desc" style="margin-bottom:20px">각 권역이 위 타이틀과 어떻게 연결되는지, 그래서 마케팅에서 무엇이 달라지는지를 함께 정리했습니다.</p>
     <div class="countries">
-      <div class="country"><span class="flag">KOREA</span><p>커뮤니티 여론이 빠르게 형성되고, 팝업·행사 같은 오프라인 수요가 커지는 중</p></div>
-      <div class="country"><span class="flag">JAPAN</span><p>서브컬처의 중심 시장. 성우·캐릭터 중심 소통이 기본 문법</p></div>
-      <div class="country"><span class="flag">CHINA</span><p>판호를 받아야 출시할 수 있고, 구글 플레이 대신 TapTap·빌리빌리 같은 자체 채널이 중심. 프로젝트C·가디언 메이든 모두 중화권은 판권에서 제외</p></div>
-      <div class="country"><span class="flag">NORTH AMERICA</span><p>방치형은 퍼포먼스 광고 효율이 핵심(메이플 키우기 미국 iOS 주간 매출 150만 달러 초과). 수집형은 Discord·Reddit 커뮤니티 운영이 성과를 가름</p></div>
-      <div class="country"><span class="flag">SOUTH AMERICA</span><p>안드로이드 비중이 높아 기기 사양과 용량에 민감. 브라질 포르투갈어·스페인어 현지화와 현지 물가에 맞춘 가격이 중요</p></div>
-      <div class="country"><span class="flag">EUROPE</span><p>국가마다 언어와 성향이 갈려 다국어 현지화가 기본. 벨기에처럼 확률형 아이템을 규제하는 나라가 있어 BM 소통에 주의</p></div>
+      <div class="country"><span class="flag">KOREA</span><p class="rel">우마무스메 · 그랑사가 키우기</p><p>두 타이틀의 주 서비스 시장. 우마무스메는 일본 원작의 업데이트가 앞서 진행되어, 국내 유저가 다음 콘텐츠를 미리 알고 기다리는 구조입니다.</p><p class="imp">→ 선행 정보를 전제로 한 업데이트 소통, 커뮤니티 여론 관리</p></div>
+      <div class="country"><span class="flag">JAPAN</span><p class="rel">그랑사가 키우기 · 가디언 메이든</p><p>그랑사가 키우기는 출시 초기 한국·일본 인기 순위 1위를 기록했습니다. 서브컬처의 중심 시장으로 성우·캐릭터 중심 소통이 기본 문법입니다.</p><p class="imp">→ 수집형 신작 진출 시 성우·캐릭터 중심 소재 설계</p></div>
+      <div class="country"><span class="flag">CHINA</span><p class="rel">프로젝트C · 가디언 메이든</p><p>두 타이틀 모두 중화권은 카카오게임즈 판권에서 제외되어 직접 공략 대상은 아닙니다. 다만 현지 출시·평판 정보는 글로벌 커뮤니티로 빠르게 퍼집니다.</p><p class="imp">→ 직접 마케팅보다 현지 동향 모니터링</p></div>
+      <div class="country"><span class="flag">NORTH AMERICA</span><p class="rel">그랑사가 키우기 · 서구권 라인업</p><p>카카오게임즈는 서구권을 중점 공략 지역으로 삼고 방치형·수집형 등 검증된 장르 위주로 라인업을 구성하고 있습니다. 메이플 키우기의 미국 iOS 주간 매출 150만 달러 초과는 방치형 수요를 보여 줍니다.</p><p class="imp">→ 방치형은 퍼포먼스 광고 효율, 수집형은 Discord·Reddit 커뮤니티 운영</p></div>
+      <div class="country"><span class="flag">SOUTH AMERICA</span><p class="rel">그랑사가 키우기</p><p>160여 개국 동시 출시에 포함된 권역. 안드로이드 비중이 높아 기기 사양과 용량에 민감합니다.</p><p class="imp">→ 브라질 포르투갈어·스페인어 현지화, 현지 물가에 맞춘 가격</p></div>
+      <div class="country"><span class="flag">EUROPE</span><p class="rel">가디언 메이든 · 프로젝트C</p><p>중화권을 제외한 글로벌 판권에 포함된 권역. 벨기에처럼 확률형 아이템을 규제하는 나라가 있어, 가챠가 핵심인 수집형에 직접 영향을 줍니다.</p><p class="imp">→ 국가별 BM 규제 확인과 다국어 현지화</p></div>
     </div>
 
     <div class="curious">
@@ -452,6 +458,10 @@
       <li><a href="https://mobile.newsis.com/view/NISX20250814_0003291146">서브컬처 게임 성장률 · 뉴시스</a></li>
       <li><a href="https://sensortower.com/blog/2025-q4-ios-top-5-idle-rpg-units-us-6040bbc2241bc16eb883a0cb">Q4 2025 미국 iOS Idle RPG Top 5 · Sensor Tower</a></li>
       <li><a href="https://dealsite.co.kr/articles/155127">카카오게임즈 2026 신작 라인업 · 딜사이트</a></li>
+      <li><a href="https://www.gamevu.co.kr/news/articleView.html?idxno=56422">카카오게임즈 2026 신작·서구권 전략 · 게임뷰</a></li>
+      <li><a href="https://www.newspim.com/news/view/20260728000863">가디언 메이든 글로벌 퍼블리싱 계약 · 뉴스핌</a></li>
+      <li><a href="https://sports.khan.co.kr/article/202607131022003">오딘 5주년 업데이트 후 구글 매출 1위 · 스포츠경향</a></li>
+      <li><a href="https://www.gamemeca.com/en/view.php?gid=1778726">오딘Q·프로젝트C 출시 일정 조정 · 게임메카</a></li>
       <li><a href="https://byline.network/2026/06/5-436/">프로젝트C 등 서브컬처 신작 · 바이라인네트워크</a></li>
       <li><a href="https://www.gamejob.co.kr/community/news/detail?mode=V&amp;idx=104125">그랑사가 키우기 · 더게임스데일리</a></li>
       <li><a href="https://newstomato.com/ReadNews.aspx?no=1157262">우마무스메 2022년 성과 · 뉴스토마토</a></li>
