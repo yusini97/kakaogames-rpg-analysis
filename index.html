@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>카카오게임즈 RPG 마케팅 분석</title>
+<meta name="description" content="카카오게임즈 서비스 타이틀을 중심으로 수집형·방치형 RPG의 타깃과 이용 동기를 정리한 개인 분석">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --yellow:#FFD400; --black:#111; --ink:#1a1a1a; --sub:#666; --line:#e6e6e6;
+    --bg:#fff; --soft:#f6f6f4; --card:#fff;
+    --idle:#2F6BFF; --collect:#FF5A7A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;word-break:keep-all;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:10;background:rgba(17,17,17,.92);backdrop-filter:blur(8px)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:800;color:#fff;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:8px}
+  .logo i{width:12px;height:12px;border-radius:50%;background:var(--yellow);display:inline-block}
+  nav ul{display:flex;gap:22px;list-style:none}
+  nav ul a{color:#bbb;text-decoration:none;font-size:14px;font-weight:600}
+  nav ul a:hover{color:var(--yellow)}
+
+  /* hero */
+  .hero{background:var(--black);color:#fff;padding:96px 0 110px;position:relative;overflow:hidden}
+  .hero .tag{display:inline-block;background:var(--yellow);color:var(--black);font-weight:800;font-size:13px;padding:6px 12px;border-radius:999px;margin-bottom:28px}
+  .hero h1{font-size:clamp(36px,6.4vw,76px);line-height:1.12;font-weight:900;letter-spacing:-.04em}
+  .hero h1 em{font-style:normal;color:var(--yellow)}
+  .hero p.lead{margin-top:28px;font-size:clamp(16px,2vw,20px);color:#ccc;max-width:640px}
+  .hero .meta{margin-top:40px;font-size:13px;color:#888}
+  .orb{position:absolute;border-radius:50%;pointer-events:none}
+  .orb.a{width:420px;height:420px;right:-160px;top:-120px;background:var(--yellow)}
+  @media (max-width:1300px){.orb.a{background:none;border:40px solid var(--yellow);opacity:.9}}
+  .orb.b{width:180px;height:180px;right:240px;bottom:-60px;border:3px solid var(--yellow)}
+  .orb.c{width:70px;height:70px;right:120px;bottom:120px;background:#fff}
+  .hero .wrap{position:relative;z-index:1}
+
+  section{padding:96px 0}
+  section.soft{background:var(--soft)}
+  .eyebrow{font-size:13px;font-weight:800;letter-spacing:.12em;color:var(--sub);text-transform:uppercase}
+  .eyebrow b{display:inline-block;background:var(--yellow);color:var(--black);padding:2px 8px;border-radius:4px;margin-right:8px}
+  h2{font-size:clamp(28px,4vw,44px);font-weight:900;letter-spacing:-.035em;line-height:1.2;margin:14px 0 18px}
+  .desc{color:var(--sub);font-size:17px;max-width:720px}
+
+  /* stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 24px}
+  .stat .num{font-size:44px;font-weight:900;letter-spacing:-.04em;line-height:1}
+  .stat .num small{font-size:20px;font-weight:800;margin-left:2px}
+  .stat .lbl{margin-top:14px;font-weight:700}
+  .stat .src{margin-top:6px;font-size:13px;color:var(--sub)}
+  .stat.hl{background:var(--yellow);border-color:var(--yellow)}
+  .stat.dark{background:var(--black);color:#fff;border-color:var(--black)}
+  .stat.dark .src{color:#999}
+
+  /* growth bars */
+  .growth{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px}
+  .growth h3{font-size:16px;margin-bottom:18px}
+  .bar-row{display:grid;grid-template-columns:120px 1fr 64px;align-items:center;gap:14px;margin:10px 0}
+  .bar-row span{font-size:14px;font-weight:700}
+  .bar{height:28px;border-radius:8px;background:var(--soft);overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:8px}
+  .bar-row b{font-size:18px;font-weight:900;text-align:right}
+
+  /* genre split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
+  .genre{border-radius:28px;padding:40px 36px;position:relative;overflow:hidden;min-height:360px}
+  .genre.collect{background:#1b1b1b;color:#fff}
+  .genre.idle{background:var(--yellow);color:var(--black)}
+  .genre .kicker{font-size:13px;font-weight:800;opacity:.7}
+  .genre h3{font-size:34px;font-weight:900;letter-spacing:-.03em;margin:8px 0 18px}
+  .genre .key{font-size:20px;font-weight:800;margin-bottom:20px}
+  .genre ul{list-style:none;display:grid;gap:10px}
+  .genre li{padding-left:18px;position:relative;font-size:15px}
+  .genre li::before{content:"";position:absolute;left:0;top:10px;width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.6}
+  .genre svg{position:absolute;right:-20px;bottom:-20px;opacity:.18}
+  .hybrid{margin-top:20px;border:2px dashed #bbb;border-radius:20px;padding:20px 24px;font-size:15px}
+  .hybrid b{background:var(--black);color:var(--yellow);padding:2px 8px;border-radius:4px;margin-right:8px;font-size:13px}
+
+  /* personas */
+  .personas{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
+  .persona{background:var(--card);border-radius:24px;padding:32px;border:1px solid var(--line)}
+  .p-head{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+  .avatar{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;font-size:30px;flex:none}
+  .persona.c .avatar{background:#ffe3ea}
+  .persona.i .avatar{background:#fff3b0}
+  .p-head small{display:block;font-size:13px;color:var(--sub);font-weight:700}
+  .p-head strong{font-size:22px;font-weight:900;letter-spacing:-.02em}
+  .persona dl{display:grid;grid-template-columns:84px 1fr;gap:12px 14px;font-size:15px}
+  .persona dt{font-weight:800;color:var(--sub);font-size:13px;padding-top:2px}
+  .note{margin-top:20px;font-size:14px;color:var(--sub)}
+
+  /* motivation matrix */
+  .matrix{margin-top:48px;background:var(--card);border-radius:24px;border:1px solid var(--line);overflow:hidden}
+  .m-row{display:grid;grid-template-columns:1.2fr 1fr 1fr 2fr;align-items:center;padding:16px 24px;border-top:1px solid var(--line);font-size:15px}
+  .m-row:first-child{border-top:0;background:var(--black);color:#fff;font-weight:800;font-size:13px}
+  .m-row .name{font-weight:800}
+  .dots{display:flex;gap:5px}
+  .dots i{width:14px;height:14px;border-radius:50%;background:var(--line)}
+  .dots.c i.on{background:var(--collect)}
+  .dots.i i.on{background:var(--idle)}
+  .m-row .copy{color:var(--sub);font-size:14px}
+  .legend{display:flex;gap:18px;margin-top:14px;font-size:13px;color:var(--sub)}
+  .legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .legend .lc::before{background:var(--collect)}
+  .legend .li::before{background:var(--idle)}
+  .churn{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .churn div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+  .churn b{font-size:30px;font-weight:900;display:block;letter-spacing:-.03em}
+  .churn span{font-size:14px;color:var(--sub)}
+  .callout{margin-top:20px;background:var(--black);color:#fff;border-radius:18px;padding:22px 26px;font-size:17px;font-weight:700}
+  .callout em{font-style:normal;color:var(--yellow)}
+
+  /* cases */
+  .cases{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+  .case{background:var(--card);border-radius:20px;padding:24px;border:1px solid var(--line);display:flex;flex-direction:column}
+  .chip{display:inline-block;font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px;align-self:flex-start}
+  .chip.i{background:#e6eeff;color:var(--idle)}
+  .chip.c{background:#ffe8ed;color:#d93357}
+  .case h3{font-size:19px;font-weight:900;margin:14px 0 4px;letter-spacing:-.02em}
+  .case .co{font-size:13px;color:var(--sub)}
+  .case p{font-size:14px;margin-top:14px}
+  .case .learn{margin-top:auto;padding-top:16px;font-size:14px;font-weight:700;border-top:1px solid var(--line)}
+  .flows{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+  .flow{background:var(--card);border-radius:20px;padding:24px;border:1px solid var(--line)}
+  .flow h4{font-size:15px;margin-bottom:14px}
+  .steps{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  .steps span{background:var(--soft);padding:6px 12px;border-radius:999px;font-size:13px;font-weight:700}
+  .steps .arr{background:none;padding:0;color:#aaa}
+
+  /* titles */
+  .titles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+  .title-card{border-radius:24px;overflow:hidden;background:#1b1b1b;color:#fff;display:flex;flex-direction:column}
+  .title-card .art{height:140px;position:relative;display:grid;place-items:center}
+  .title-card .art svg{width:100%;height:100%}
+  .title-card .body{padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .title-card h3{font-size:19px;font-weight:900;letter-spacing:-.02em}
+  .title-card .g{font-size:12px;font-weight:800;color:var(--yellow)}
+  .title-card .t{font-size:13px;color:#aaa}
+  .title-card p{font-size:14px;color:#ddd}
+  .soon{position:absolute;top:12px;right:12px;background:var(--yellow);color:var(--black);font-size:11px;font-weight:900;padding:3px 8px;border-radius:999px}
+  .countries{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .country{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px}
+  .country .flag{font-size:13px;font-weight:900;background:var(--black);color:var(--yellow);display:inline-block;padding:4px 10px;border-radius:6px}
+  .country p{margin-top:14px;font-size:15px}
+  .curious{margin-top:20px;background:var(--yellow);border-radius:24px;padding:32px}
+  .curious h4{font-size:18px;font-weight:900;margin-bottom:16px}
+  .curious ol{list-style:none;display:grid;gap:12px;counter-reset:q}
+  .curious li{counter-increment:q;display:flex;gap:14px;align-items:flex-start;font-size:16px;font-weight:600}
+  .curious li::before{content:"Q" counter(q);font-weight:900;background:var(--black);color:var(--yellow);border-radius:8px;padding:2px 8px;font-size:13px;flex:none;margin-top:2px}
+  .small{font-size:13px;color:var(--sub);margin-top:14px}
+
+  footer{background:var(--black);color:#888;padding:56px 0;font-size:13px}
+  footer h4{color:#fff;font-size:15px;margin-bottom:14px}
+  footer ul{list-style:none;display:grid;gap:6px}
+  footer a{color:#aaa;text-decoration:none}
+  footer a:hover{color:var(--yellow)}
+  footer .fine{margin-top:32px;padding-top:20px;border-top:1px solid #2a2a2a}
+
+  @media (max-width:900px){
+    nav ul{display:none}
+    .stats,.cases,.titles{grid-template-columns:1fr 1fr}
+    .split,.personas,.flows{grid-template-columns:1fr}
+    .countries,.churn{grid-template-columns:1fr}
+    .m-row{grid-template-columns:1fr 1fr 1fr}
+    .m-row .copy{grid-column:1/-1;margin-top:6px}
+    .orb.a{width:260px;height:260px;right:-120px;top:-60px}
+    .orb.b{display:none}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 16px}
+    section{padding:72px 0}
+    .orb.a{width:200px;height:200px;border-width:28px;right:-90px;top:-70px}
+    .orb.c{display:none}
+    .stats,.cases,.titles{grid-template-columns:1fr}
+    .bar-row{grid-template-columns:84px 1fr 52px}
+    .genre{padding:32px 24px;min-height:0}
+    .persona{padding:24px}
+    .persona dl{grid-template-columns:1fr;gap:2px}
+    .persona dd{margin-bottom:10px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top"><i></i>Kakao Games RPG Note</a>
+    <ul>
+      <li><a href="#market">시장</a></li>
+      <li><a href="#target">타깃</a></li>
+      <li><a href="#motive">동기</a></li>
+      <li><a href="#cases">사례</a></li>
+      <li><a href="#titles">적용</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="orb a"></div><div class="orb b"></div><div class="orb c"></div>
+  <div class="wrap">
+    <span class="tag">카카오게임즈 수집형 · 방치형 RPG 마케팅 분석</span>
+    <h1>수집형은 <em>팬덤의 깊이</em>로,<br>방치형은 <em>시간 부담의 낮음</em>으로.</h1>
+    <p class="lead">게임 시간 자체가 줄어든 시장에서 두 장르가 살아남는 방식은 다릅니다. 공개 데이터로 타깃과 이용 동기를 정리하고, 마케팅 방향으로 연결해 봤습니다.</p>
+    <p class="meta">2026.11 · yushin</p>
+  </div>
+</header>
+
+<!-- 1. market -->
+<section id="market">
+  <div class="wrap">
+    <p class="eyebrow"><b>01</b>Market</p>
+    <h2>줄어드는 플레이 시간,<br>커지는 장르 양극화</h2>
+    <p class="desc">국내 게임 이용률은 10년 만에 최저지만, 서브컬처 시장은 전체보다 세 배 빠르게 자랐습니다.</p>
+
+    <div class="stats">
+      <div class="stat dark"><div class="num">50.2<small>%</small></div><div class="lbl">2025 국내 게임 이용률</div><div class="src">2015년 이후 최저</div></div>
+      <div class="stat"><div class="num">44<small>%</small></div><div class="lbl">미이용 이유 1위: 시간 부족</div><div class="src">게임이용자 실태조사</div></div>
+      <div class="stat hl"><div class="num">16.7<small>%</small></div><div class="lbl">서브컬처 연평균 성장률</div><div class="src">2018~23, 전체 5.2%</div></div>
+      <div class="stat"><div class="num">30·40<small>대</small></div><div class="lbl">결제의 중심</div><div class="src">30대 결제액 1위 · 40대 1인당 1위</div></div>
+    </div>
+
+    <div class="growth">
+      <h3>연평균 성장률 비교 (2018~2023)</h3>
+      <div class="bar-row"><span>서브컬처</span><div class="bar"><i style="width:100%;background:var(--collect)"></i></div><b>16.7%</b></div>
+      <div class="bar-row"><span>전체 게임 시장</span><div class="bar"><i style="width:31%;background:#bbb"></i></div><b>5.2%</b></div>
+    </div>
+
+    <div class="split">
+      <div class="genre collect">
+        <p class="kicker">COLLECTION</p>
+        <h3>수집형</h3>
+        <p class="key">"왜 이 캐릭터여야 하나"</p>
+        <ul>
+          <li>캐릭터 애착, 수집·완성, 세계관</li>
+          <li>2026년 대형사 신작이 몰린 '서브컬처 전쟁'</li>
+          <li>AGF 2025 관람객 100,518명, 전년 대비 약 40%↑</li>
+          <li>블루 아카이브, 승리의 여신: 니케</li>
+        </ul>
+        <svg width="220" height="220" viewBox="0 0 100 100"><path fill="#FF5A7A" d="M50 88s-34-20-34-46a18 18 0 0 1 34-8 18 18 0 0 1 34 8c0 26-34 46-34 46z"/></svg>
+      </div>
+      <div class="genre idle">
+        <p class="kicker">IDLE</p>
+        <h3>방치형</h3>
+        <p class="key">"아는 IP를 가볍게"</p>
+        <ul>
+          <li>버려두어도 쌓이는 성장, 숫자가 커지는 쾌감</li>
+          <li>메이플 키우기 일 매출 1위 이후 클래식 IP '키우기' 러시</li>
+          <li>스톤에이지 키우기 최고 4위, 창세기전 키우기 최고 12위</li>
+          <li>장르보다 IP가 먼저 팔린다</li>
+        </ul>
+        <svg width="220" height="220" viewBox="0 0 100 100"><path fill="#111" d="M10 90h16V60H10zm22 0h16V44H32zm22 0h16V28H54zm22 0h16V10H76z"/></svg>
+      </div>
+    </div>
+    <div class="hybrid"><b>HYBRID</b>최근 방치형 대부분이 동료·펫 같은 수집 BM을 품습니다. 카피바라 GO!, AFK 저니처럼 두 장르의 경계는 계속 흐려지는 중입니다.</div>
+  </div>
+</section>
+
+<!-- 2. target -->
+<section id="target" class="soft">
+  <div class="wrap">
+    <p class="eyebrow"><b>02</b>Target</p>
+    <h2>나이보다 '쓸 수 있는<br>시간과 감정의 양'</h2>
+    <p class="desc">두 장르의 핵심 타깃을 공개 데이터와 장르 관행으로 그려 본 가설 페르소나입니다.</p>
+
+    <div class="personas">
+      <div class="persona c">
+        <div class="p-head"><div class="avatar">💗</div><div><small>수집형</small><strong>"최애 수집러" 지훈, 27</strong></div></div>
+        <dl>
+          <dt>상황</dt><dd>직장 2년 차, 퇴근 후 1~2시간. 애니·버튜버·팬 행사를 즐김</dd>
+          <dt>게임 이력</dt><dd>원신, 블루 아카이브 등 2~3개 병행. 신작은 일단 설치</dd>
+          <dt>결제</dt><dd>픽업 배너 집중. 최애 한정은 천장까지</dd>
+          <dt>정보 경로</dt><dd>X, 커뮤니티 갤러리, 유튜브 PV, 성우 소식</dd>
+          <dt>이탈</dt><dd>최애 미출시, 스토리 실망, 운영 논란</dd>
+        </dl>
+      </div>
+      <div class="persona i">
+        <div class="p-head"><div class="avatar">⏱️</div><div><small>방치형</small><strong>"출퇴근 성장러" 민수, 38</strong></div></div>
+        <dl>
+          <dt>상황</dt><dd>맞벌이, 자녀 1명. 하루 순수 게임 시간 20~30분</dd>
+          <dt>게임 이력</dt><dd>메이플·바람의나라 세대. MMORPG는 시간이 없어 접음</dd>
+          <dt>결제</dt><dd>월정액·패스 위주, 성장이 막히면 소액 패키지</dd>
+          <dt>정보 경로</dt><dd>유튜브·인스타 숏폼 광고, 스토어 피처드, 지인 추천</dd>
+          <dt>이탈</dt><dd>성장 정체, 과금 압박, 반복되는 화면</dd>
+        </dl>
+      </div>
+    </div>
+    <p class="note">근거: 원스토어 2025 구매 데이터 — 30대 구매자 수·결제액 1위, 40대 1인당 결제액 1위. 20대는 쿠폰·포인트를 쓰는 '가성비 소비'가 강함.</p>
+  </div>
+</section>
+
+<!-- 3. motive -->
+<section id="motive">
+  <div class="wrap">
+    <p class="eyebrow"><b>03</b>Motivation</p>
+    <h2>수집형은 감정,<br>방치형은 효율</h2>
+    <p class="desc">같은 '성장'도 수집형에선 최애를 키우는 수단이고, 방치형에선 그 자체가 목적입니다.</p>
+
+    <div class="matrix" role="table">
+      <div class="m-row" role="row"><span>동기</span><span>수집형</span><span>방치형</span><span class="copy" style="color:#fff">마케팅에서 건드릴 말</span></div>
+      <div class="m-row"><span class="name">수집·완성</span><span class="dots c"><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="dots i"><i class="on"></i><i class="on"></i><i></i></span><span class="copy">"도감 완성", "한정 캐릭터"</span></div>
+      <div class="m-row"><span class="name">애착·스토리</span><span class="dots c"><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="dots i"><i class="on"></i><i></i><i></i></span><span class="copy">캐릭터 PV, 성우, 세계관 티저</span></div>
+      <div class="m-row"><span class="name">성장·파워</span><span class="dots c"><i class="on"></i><i class="on"></i><i></i></span><span class="dots i"><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="copy">"켜두기만 하면 레벨업", 전투력 숫자</span></div>
+      <div class="m-row"><span class="name">시간 효율</span><span class="dots c"><i class="on"></i><i></i><i></i></span><span class="dots i"><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="copy">"하루 5분", 오프라인 보상</span></div>
+      <div class="m-row"><span class="name">커뮤니티·정체성</span><span class="dots c"><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="dots i"><i class="on"></i><i></i><i></i></span><span class="copy">팬아트, 밈, 오프라인 팝업</span></div>
+      <div class="m-row"><span class="name">향수·IP 친숙함</span><span class="dots c"><i class="on"></i><i class="on"></i><i></i></span><span class="dots i"><i class="on"></i><i class="on"></i><i class="on"></i></span><span class="copy">"그 시절 그 캐릭터", 원작 BGM</span></div>
+    </div>
+    <div class="legend"><span class="lc">수집형 강도</span><span class="li">방치형 강도</span><span>Quantic Foundry 게이머 동기 모델 참고 · 강도는 정성 판단</span></div>
+
+    <div class="churn">
+      <div><b>44%</b><span>시간 부족</span></div>
+      <div><b>36%</b><span>흥미 감소</span></div>
+      <div><b>34.9%</b><span>대체 여가 발견</span></div>
+    </div>
+    <div class="callout">대체 여가 1위는 OTT·영상(86.3%). 진짜 경쟁 상대는 다른 게임보다 <em>영상 콘텐츠</em>입니다.</div>
+  </div>
+</section>
+
+<!-- 4. cases -->
+<section id="cases" class="soft">
+  <div class="wrap">
+    <p class="eyebrow"><b>04</b>Cases</p>
+    <h2>아는 얼굴을 가볍게,<br>게임 밖에서도 캐릭터를</h2>
+    <p class="desc">공개된 마케팅 활동을 장르 관점에서 묶었습니다.</p>
+
+    <div class="cases">
+      <div class="case"><span class="chip i">방치형</span><h3>메이플 키우기</h3><p class="co">넥슨</p><p>원작 캐릭터·맵·BGM을 그대로 쓴 향수 소구, 글로벌 동시 공략</p><p class="learn">낮은 진입 장벽 + 강한 IP = 복귀 유저 대량 유입</p></div>
+      <div class="case"><span class="chip i">방치형</span><h3>세븐나이츠 키우기</h3><p class="co">넷마블</p><p>원작 영웅을 SD로 단순화, '키우기' 네이밍으로 장르를 이름에서 전달</p><p class="learn">이름과 아이콘만으로 '가볍다'는 약속</p></div>
+      <div class="case"><span class="chip c">수집형</span><h3>블루 아카이브</h3><p class="co">넥슨게임즈</p><p>TV 애니메이션, 팝업·콜라보 카페, 행사 참여로 게임 밖 접점 확대</p><p class="learn">운영기 IP 확장이 매출을 오래 끌고 간다</p></div>
+      <div class="case"><span class="chip c">수집형</span><h3>승리의 여신: 니케</h3><p class="co">시프트업</p><p>캐릭터 비주얼을 전면에 둔 후킹 소재, 인기 IP 콜라보</p><p class="learn">한 장의 이미지가 초기 유입을 결정</p></div>
+    </div>
+
+    <div class="flows">
+      <div class="flow"><h4>방치형 공식</h4><div class="steps"><span>숏폼 퍼포먼스 광고</span><span class="arr">→</span><span>출시 쿠폰·리워드</span><span class="arr">→</span><span>누적 출석·패스</span></div></div>
+      <div class="flow"><h4>수집형 공식</h4><div class="steps"><span>사전예약</span><span class="arr">→</span><span>캐릭터·성우 PV</span><span class="arr">→</span><span>인플루언서</span><span class="arr">→</span><span>콜라보·팝업</span><span class="arr">→</span><span>복각</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. titles -->
+<section id="titles">
+  <div class="wrap">
+    <p class="eyebrow"><b>05</b>Apply</p>
+    <h2>카카오게임즈 서비스 타이틀에<br>대입해 보기</h2>
+    <p class="desc">앞의 분석을 수집형·방치형 타이틀에 대입해 타깃과 마케팅 포인트를 읽어 봤습니다. 공개 자료 기반 관찰입니다.</p>
+
+    <div class="titles">
+      <div class="title-card">
+        <div class="art" style="background:#FF5A7A"><svg viewBox="0 0 200 140"><circle cx="150" cy="30" r="50" fill="#FFD400" opacity=".9"/><path d="M0 140 L60 70 L110 110 L150 80 L200 120 V140Z" fill="#111" opacity=".25"/><text x="20" y="110" font-size="44" font-weight="900" fill="#fff" font-family="Pretendard,sans-serif">RUN</text></svg></div>
+        <div class="body"><span class="g">수집형 육성</span><h3>우마무스메 프리티 더비</h3><span class="t">원작·애니 팬덤, 20~30대 서브컬처 이용자</span><p>2022년 출시 한 달 만에 양대 마켓 매출 1위. IP 팬덤과 커뮤니티가 초기 성과를 만든 사례</p></div>
+      </div>
+      <div class="title-card">
+        <div class="art" style="background:#8E7CFF"><svg viewBox="0 0 200 140"><g fill="#fff" opacity=".85"><circle cx="50" cy="60" r="18"/><circle cx="100" cy="45" r="24"/><circle cx="150" cy="60" r="18"/></g><path d="M0 140 Q100 70 200 140Z" fill="#FFD400"/></svg></div>
+        <div class="body"><span class="g">수집형 RPG</span><h3>에버소울</h3><span class="t">캐릭터 애착이 강한 서브컬처 이용자</span><p>캐릭터 중심 운영이 리텐션의 축. '애착·스토리' 동기와 가장 가까운 타이틀</p></div>
+      </div>
+      <div class="title-card">
+        <div class="art" style="background:#FFD400"><svg viewBox="0 0 200 140"><g fill="#111"><rect x="30" y="90" width="22" height="30" rx="4"/><rect x="62" y="70" width="22" height="50" rx="4"/><rect x="94" y="50" width="22" height="70" rx="4"/><rect x="126" y="28" width="22" height="92" rx="4"/></g><text x="152" y="34" font-size="26" font-weight="900" fill="#111" font-family="Pretendard,sans-serif">↑</text></svg></div>
+        <div class="body"><span class="g">방치형 + 수집</span><h3>그랑사가 키우기</h3><span class="t">짧게 자주 접속하는 30·40대</span><p>160여 개국 동시 출시, 영웅 75종 이상. 방치형에 수집을 결합한 하이브리드</p></div>
+      </div>
+      <div class="title-card">
+        <div class="art" style="background:#2F6BFF"><span class="soon">출시 예정</span><svg viewBox="0 0 200 140"><g fill="#fff"><circle cx="40" cy="50" r="10"/><circle cx="90" cy="35" r="10"/><circle cx="150" cy="45" r="10"/><circle cx="65" cy="100" r="10"/><circle cx="135" cy="100" r="10" fill="#FFD400"/></g><path d="M40 50 L90 35 L150 45 L135 100 L65 100 Z" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/></svg></div>
+        <div class="body"><span class="g">수집형 육성 시뮬레이션</span><h3>프로젝트C</h3><span class="t">세계관·캐릭터를 즐기는 서브컬처 이용자</span><p>모바일·PC, 5개 대륙 판타지. 대륙별 세계관이 국가별 소재로 쓰일 여지</p></div>
+      </div>
+    </div>
+
+    <div class="countries">
+      <div class="country"><span class="flag">KOREA</span><p>커뮤니티 여론이 빠르게 형성되고, 팝업·행사 같은 오프라인 수요가 커지는 중</p></div>
+      <div class="country"><span class="flag">JAPAN</span><p>서브컬처의 중심 시장. 성우·캐릭터 중심 소통이 기본 문법</p></div>
+      <div class="country"><span class="flag">GLOBAL</span><p>방치형은 퍼포먼스 광고 효율이, 수집형은 Discord·Reddit 커뮤니티 운영이 성과를 가름</p></div>
+    </div>
+
+    <div class="curious">
+      <h4>더 알아보고 싶은 지점</h4>
+      <ol>
+        <li>업데이트·신규 캐릭터 시점의 메시지와 소재가 국가별로 어떻게 달라지는지</li>
+        <li>복귀 유저 이벤트가 방치형 유저와 서브컬처 유저에게 각각 어떻게 작동하는지</li>
+        <li>커뮤니티 반응이 다음 소재와 이벤트에 반영되는 흐름</li>
+      </ol>
+    </div>
+    <p class="small">타이틀 이미지는 장르 분위기를 표현한 일러스트이며 실제 게임 아트가 아닙니다.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h4>출처</h4>
+    <ul>
+      <li><a href="https://biz.sbs.co.kr/amp/article/20000280068">2025 게임이용자 실태조사 기사 · SBS Biz</a></li>
+      <li><a href="https://byline.network/2026/01/26-542/">원스토어 2025 게임 이용 트렌드 · 바이라인네트워크</a></li>
+      <li><a href="https://www.inews24.com/view/1915547">2026 서브컬처 신작 경쟁 · 아이뉴스24</a></li>
+      <li><a href="https://mobile.newsis.com/view/NISX20250814_0003291146">서브컬처 게임 성장률 · 뉴시스</a></li>
+      <li><a href="https://sensortower.com/blog/2025-q4-ios-top-5-idle-rpg-units-us-6040bbc2241bc16eb883a0cb">Q4 2025 미국 iOS Idle RPG Top 5 · Sensor Tower</a></li>
+      <li><a href="https://dealsite.co.kr/articles/155127">카카오게임즈 2026 신작 라인업 · 딜사이트</a></li>
+      <li><a href="https://byline.network/2026/06/5-436/">프로젝트C 등 서브컬처 신작 · 바이라인네트워크</a></li>
+      <li><a href="https://www.gamejob.co.kr/community/news/detail?mode=V&amp;idx=104125">그랑사가 키우기 · 더게임스데일리</a></li>
+      <li><a href="https://newstomato.com/ReadNews.aspx?no=1157262">우마무스메 2022년 성과 · 뉴스토마토</a></li>
+    </ul>
+    <p class="fine">공개 자료를 바탕으로 한 개인 분석 페이지입니다. 각 게임과 회사의 공식 자료가 아닙니다. © 2026 yushin</p>
+  </div>
+</footer>
+
+</body>
+</html>
